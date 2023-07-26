@@ -1,3 +1,6 @@
+export const personalToken =
+  'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ZjM0YjM5NDAxMWMxOWNhOTRiMmU3MDM0NGI0NjRmYyIsInN1YiI6IjY0YmZhMDQ4NmVlM2Q3MDBhYzQzMTg4OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.yWnPgLXMZCMWIR6pCJTF5Owhh_MPW-Vfp__E1SAz4Vk'
+
 export const CatalogueMenu = [
   {
     path: '/paises',

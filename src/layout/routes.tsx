@@ -1,14 +1,14 @@
 import React from 'react'
-// import { Outlet } from 'react-router-dom'
 
 const Dashboard = React.lazy(
   async () => await import('page/dashboard/Dashboard')
 )
+const Popular = React.lazy(async () => await import('page/popular/Popular'))
 
 const routes = [
-  { path: '*', name: 'Página no encontrada' },
-  { path: '/', exact: true, name: 'Home' },
-  { path: '/dashboard', name: 'Dashboard', element: <Dashboard /> }
+  { path: '/', name: 'Dashboard', element: <Dashboard /> },
+  { path: '/popular', name: 'Películas más populares', element: <Popular /> },
+  { path: '*', name: 'Página no encontrada' }
 ]
 
 export default routes

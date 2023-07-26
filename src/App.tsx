@@ -1,12 +1,10 @@
 import React, { Suspense } from 'react'
-import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 
 import './App.css'
 
 const theme = createTheme({})
-
-const Login = React.lazy(async () => await import('page/login/Login'))
 
 const DefaultLayout = React.lazy(
   async () => await import('layout/DefaultLayout')
@@ -21,9 +19,7 @@ const App: React.FC = () => {
         <BrowserRouter>
           <Suspense fallback={loading}>
             <Routes>
-              <Route path="/login" element={<Login />} />
-              <Route path="/dashboard" element={<DefaultLayout />} />
-              <Route path="*" element={<Navigate to="/dashboard" replace />} />
+              <Route path="*" element={<DefaultLayout />} />
             </Routes>
           </Suspense>
         </BrowserRouter>

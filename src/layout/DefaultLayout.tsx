@@ -20,14 +20,6 @@ import HomeIcon from '@mui/icons-material/Home'
 import MenuIcon from '@mui/icons-material/Menu'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import ListAltIcon from '@mui/icons-material/ListAlt'
-import ExpandLess from '@mui/icons-material/ExpandLess'
-import ExpandMore from '@mui/icons-material/ExpandMore'
-import Topic from '@mui/icons-material/Topic'
-
-import Collapse from '@mui/material/Collapse'
-
-import { CatalogueMenu } from '_global/constant'
 
 import routes from './routes'
 import UseMatchedRoute from 'components/useMatchedRoute'
@@ -86,10 +78,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 // eslint-disable react/prop-types
 export default function DefaultLayout() {
   const theme = useTheme()
-  // console.log('keycloak', keycloak)
 
   const [open, setOpen] = useState(true)
-  const [openCatalogue, setOpenCatalogue] = useState(false)
 
   const route = UseMatchedRoute()
 
@@ -164,52 +154,29 @@ export default function DefaultLayout() {
           <ListItem
             disablePadding
             onClick={() => {
-              navigate('/dashboard')
+              navigate('/')
             }}
           >
             <ListItemButton>
               <ListItemIcon>
                 <HomeIcon />
               </ListItemIcon>
-              <ListItemText primary="Inicio" />
+              <ListItemText primary="Dashboard" />
             </ListItemButton>
           </ListItem>
-
           <ListItem
             disablePadding
             onClick={() => {
-              setOpenCatalogue(!openCatalogue)
+              navigate('/popular')
             }}
           >
             <ListItemButton>
               <ListItemIcon>
-                <Topic />
+                <HomeIcon />
               </ListItemIcon>
-              <ListItemText primary="Catálogos" />
-              {openCatalogue ? <ExpandLess /> : <ExpandMore />}
+              <ListItemText primary="Películas más populares" />
             </ListItemButton>
           </ListItem>
-          <Collapse in={openCatalogue} timeout="auto" unmountOnExit>
-            {CatalogueMenu.map((item, index) => (
-              <ListItem
-                key={index}
-                disablePadding
-                onClick={() => {
-                  navigate(item.path)
-                }}
-                sx={{
-                  backgroundColor: route.path === item.path ? 'red' : undefined
-                }}
-              >
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <ListAltIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={item.label} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </Collapse>
         </List>
         <Divider />
       </Drawer>
