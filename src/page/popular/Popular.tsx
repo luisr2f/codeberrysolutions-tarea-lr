@@ -11,12 +11,17 @@ import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import Pagination from '@mui/material/Pagination'
 
+import Link from '@mui/material/Link'
+
 import Loading from 'components/loading'
 import MessageTable from 'components/messageTable'
 import ImageTmdb from 'components/imageTmdb'
+import Genres from 'components/genres'
 
 import { useAppSelector, useAppDispatch } from '_redux/hooks'
 import { fetch as popularFetch } from '_redux/slices/popularSlice'
+import { fetch as genresFetch } from '_redux/slices/genresSlice'
+
 import { TableRowStyled, TableCellStyled } from '_global/helperStyles'
 import { auto } from '@popperjs/core'
 
@@ -28,19 +33,18 @@ export default function Page() {
   const dispatch = useAppDispatch()
 
   const data = useAppSelector((state) => state.popular)
+  const genres = useAppSelector((state) => state.genres)
 
   const search = window.location.search
   const params = new URLSearchParams(search)
-  // params.get('page')
   const [page, setPage] = useState<number>(
     Number(params.get('page') !== null ? params.get('page') : 1)
   )
 
-  /* useEffect(() => {
-    dispatch(popularFetch({ page: 1 }))
+  useEffect(() => {
+    genres.result.length === 0 && dispatch(genresFetch())
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch])
-  */
 
   useEffect(() => {
     navigate({
@@ -63,7 +67,7 @@ export default function Page() {
             <TableRow>
               <TableCellStyled sx={{ width: 50 }}></TableCellStyled>
               <TableCellStyled sx={{ width: auto }}>
-                Título / Fecha de lanzamiento
+                Título / Género
               </TableCellStyled>
               <TableCellStyled sx={{ width: auto }}>
                 Popularidad
@@ -73,30 +77,58 @@ export default function Page() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.loading && <Loading colSpan={3} />}
             {!data.loading && data.error !== '' ? (
               <MessageTable colSpan={3} text={data.error} />
             ) : null}
-            {!data.loading &&
-              data.result?.results !== undefined &&
-              data.result?.results.length > 0 &&
-              data.result?.results.map((row, index) => (
-                <TableRowStyled key={index}>
-                  <TableCell>
-                    <ImageTmdb
-                      size={45}
-                      img={row.poster_path}
-                      title={row.title}
-                    />
-                  </TableCell>
-                  <TableCell>{row.title}</TableCell>
-                  <TableCell>{row.popularity}</TableCell>
-                  <TableCell>
-                    {moment(row.release_date).format('D MMMM YYYY')}
-                  </TableCell>
-                  <TableCell> z</TableCell>
-                </TableRowStyled>
-              ))}
+            {data.loading || genres.loading ? (
+              <Loading colSpan={3} />
+            ) : (
+              <>
+                {!data.loading &&
+                  data.result?.results !== undefined &&
+                  data.result?.results.length > 0 &&
+                  data.result?.results.map((row, index) => (
+                    <TableRowStyled key={index}>
+                      <TableCell>
+                        <ImageTmdb
+                          size={45}
+                          img={row.poster_path}
+                          title={row.title}
+                        />
+                      </TableCell>
+                      <TableCell>
+                        <Box sx={{ my: 1 }}>
+                          <Link
+                            underline="hover"
+                            variant="body2"
+                            onClick={() => alert(row.id)}
+                            sx={{
+                              cursor: 'pointer',
+                              fontWeight: 'medium'
+                            }}
+                          >
+                            {row.title}
+                          </Link>
+                        </Box>
+                        <Box>
+                          <Genres
+                            genre={row.genre_ids.map(
+                              (id) =>
+                                genres.result.find((elem) => elem.id === id)
+                                  ?.name
+                            )}
+                          />
+                        </Box>
+                      </TableCell>
+                      <TableCell>{row.popularity}</TableCell>
+                      <TableCell>
+                        {moment(row.release_date).format('D MMMM YYYY')}
+                      </TableCell>
+                      <TableCell> z</TableCell>
+                    </TableRowStyled>
+                  ))}
+              </>
+            )}
           </TableBody>
         </Table>
       </TableContainer>
@@ -112,11 +144,15 @@ export default function Page() {
           showLastButton
         />
       )}
-      {/* <Box sx={{ mt: 3 }}>
-        <pre>
-          <code>{JSON.stringify(data, null, 4)}</code>
-        </pre>
-      </Box> */}
+      {
+        <>
+          <Box sx={{ mt: 3 }}>
+            <pre>
+              <code>{JSON.stringify(genres, null, 4)}</code>
+            </pre>
+          </Box>
+        </>
+      }
     </Box>
   )
 }

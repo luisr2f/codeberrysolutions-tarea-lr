@@ -4,7 +4,11 @@ import { ThemeProvider, createTheme } from '@mui/material/styles'
 
 import './App.css'
 
-const theme = createTheme({})
+const theme = createTheme({
+  /* palette: {
+    mode: 'dark'
+  } */
+})
 
 const DefaultLayout = React.lazy(
   async () => await import('layout/DefaultLayout')

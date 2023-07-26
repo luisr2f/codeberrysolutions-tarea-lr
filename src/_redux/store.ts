@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 
 import popularReducer from '_redux/slices/popularSlice'
+import genresReducer from '_redux/slices/genresSlice'
 
 const store = configureStore({
   reducer: {
-    popular: popularReducer
+    popular: popularReducer,
+    genres: genresReducer
   }
 })
 

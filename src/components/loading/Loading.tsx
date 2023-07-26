@@ -29,7 +29,7 @@ const Loading: React.FC<Props> = ({ colSpan = undefined }) => {
           direction="column"
           alignItems="center"
           justifyContent="center"
-          sx={{ py: 2 }}
+          sx={{ py: 4 }}
         >
           <CircularProgress size={28} sx={{ color: 'grey.400' }} />
         </Grid>
