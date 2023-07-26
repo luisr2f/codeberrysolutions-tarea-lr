@@ -10,6 +10,8 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import Pagination from '@mui/material/Pagination'
+import IconButton from '@mui/material/IconButton'
+import VisibilityIcon from '@mui/icons-material/Visibility'
 
 import Link from '@mui/material/Link'
 
@@ -17,6 +19,7 @@ import Loading from 'components/loading'
 import MessageTable from 'components/messageTable'
 import ImageTmdb from 'components/imageTmdb'
 import Genres from 'components/genres'
+import DetailFIlm from 'components/detailFIlm'
 
 import { useAppSelector, useAppDispatch } from '_redux/hooks'
 import { fetch as popularFetch } from '_redux/slices/popularSlice'
@@ -40,6 +43,7 @@ export default function Page() {
   const [page, setPage] = useState<number>(
     Number(params.get('page') !== null ? params.get('page') : 1)
   )
+  const [detailId, setDetailId] = useState<number | null>(null)
 
   useEffect(() => {
     genres.result.length === 0 && dispatch(genresFetch())
@@ -57,6 +61,7 @@ export default function Page() {
 
   return (
     <Box>
+      <DetailFIlm id={detailId} onActionClose={() => setDetailId(null)} />
       <TableContainer component={Paper}>
         <Table
           size="small"
@@ -72,16 +77,18 @@ export default function Page() {
               <TableCellStyled sx={{ width: auto }}>
                 Popularidad
               </TableCellStyled>
-              <TableCellStyled sx={{ width: auto }}>Género</TableCellStyled>
+              <TableCellStyled sx={{ width: auto }}>
+                Fecha de lanzamiento
+              </TableCellStyled>
               <TableCellStyled sx={{ width: 120 }}></TableCellStyled>
             </TableRow>
           </TableHead>
           <TableBody>
             {!data.loading && data.error !== '' ? (
-              <MessageTable colSpan={3} text={data.error} />
+              <MessageTable colSpan={5} text={data.error} />
             ) : null}
             {data.loading || genres.loading ? (
-              <Loading colSpan={3} />
+              <Loading colSpan={5} />
             ) : (
               <>
                 {!data.loading &&
@@ -101,7 +108,7 @@ export default function Page() {
                           <Link
                             underline="hover"
                             variant="body2"
-                            onClick={() => alert(row.id)}
+                            onClick={() => setDetailId(row.id)}
                             sx={{
                               cursor: 'pointer',
                               fontWeight: 'medium'
@@ -124,7 +131,24 @@ export default function Page() {
                       <TableCell>
                         {moment(row.release_date).format('D MMMM YYYY')}
                       </TableCell>
-                      <TableCell> z</TableCell>
+                      <TableCell>
+                        {' '}
+                        <Box
+                          display="flex"
+                          flexDirection="row"
+                          justifyContent="flex-end"
+                          alignItems="flex-start"
+                        >
+                          <IconButton
+                            color="inherit"
+                            onClick={() => {
+                              setDetailId(row.id)
+                            }}
+                          >
+                            <VisibilityIcon fontSize="small" />
+                          </IconButton>
+                        </Box>
+                      </TableCell>
                     </TableRowStyled>
                   ))}
               </>

@@ -3,50 +3,52 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 
 interface InitialState {
   loading: boolean
-  result: any[]
+  result: any
   error: string
-}
-export interface Data {
-  id: number
-  name: string
 }
 
 const initialState: InitialState = {
   loading: false,
-  result: [],
+  result: null,
   error: ''
 }
 
 // Generates pending, fulfilled and rejected action types
-export const fetch = createAsyncThunk('genres/fetch', async () => {
-  const params = {
-    language: 'es'
+export const fetch = createAsyncThunk(
+  'detailFilm/fetch',
+  async ({ id }: { id: number }) => {
+    const params = {
+      language: 'es'
+    }
+    return await axios
+      .get('/movie/' + String(id), { params })
+      .then((response) => response.data)
   }
-  return await axios
-    .get('/genre/movie/list', { params })
-    .then((response) => response.data.genres)
-})
+)
 
-const genresSlice = createSlice({
-  name: 'genres',
+const detailFilmSlice = createSlice({
+  name: 'detailFilm',
   initialState,
-  reducers: {},
+  reducers: {
+    reset: () => initialState
+  },
   extraReducers: (builder) => {
     builder.addCase(fetch.pending, (state) => {
       state.loading = true
     })
-    builder.addCase(fetch.fulfilled, (state, action: PayloadAction<Data[]>) => {
+    builder.addCase(fetch.fulfilled, (state, action: PayloadAction<any>) => {
       state.loading = false
       state.result = action.payload
-
       state.error = ''
     })
     builder.addCase(fetch.rejected, (state, action) => {
       state.loading = false
-      state.result = []
+      state.result = null
       state.error = action.error.message ?? 'Something went wrong'
     })
   }
 })
 
-export default genresSlice.reducer
+export default detailFilmSlice.reducer
+
+export const { reset } = detailFilmSlice.actions

@@ -2,11 +2,13 @@ import { configureStore } from '@reduxjs/toolkit'
 
 import popularReducer from '_redux/slices/popularSlice'
 import genresReducer from '_redux/slices/genresSlice'
+import detailFilmReducer from '_redux/slices/detailFilmSlice'
 
 const store = configureStore({
   reducer: {
     popular: popularReducer,
-    genres: genresReducer
+    genres: genresReducer,
+    detailFilm: detailFilmReducer
   }
 })
 

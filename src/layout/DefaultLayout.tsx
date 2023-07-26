@@ -16,10 +16,11 @@ import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import HomeIcon from '@mui/icons-material/Home'
 import MenuIcon from '@mui/icons-material/Menu'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
+import DashboardIcon from '@mui/icons-material/Dashboard'
+import ListAltIcon from '@mui/icons-material/ListAlt'
 
 import routes from './routes'
 import UseMatchedRoute from 'components/useMatchedRoute'
@@ -109,15 +110,7 @@ export default function DefaultLayout() {
           >
             <MenuIcon />
           </IconButton>
-          <Toolbar>
-            {/*
-            <img
-              src={logoFarabella}
-              alt="logo"
-              style={{ width: 200, height: 30, marginLeft: -36 }}
-            />
-  */}
-          </Toolbar>
+          <Toolbar></Toolbar>
         </Toolbar>
       </AppBar>
 
@@ -159,7 +152,7 @@ export default function DefaultLayout() {
           >
             <ListItemButton>
               <ListItemIcon>
-                <HomeIcon />
+                <DashboardIcon />
               </ListItemIcon>
               <ListItemText primary="Dashboard" />
             </ListItemButton>
@@ -172,7 +165,7 @@ export default function DefaultLayout() {
           >
             <ListItemButton>
               <ListItemIcon>
-                <HomeIcon />
+                <ListAltIcon />
               </ListItemIcon>
               <ListItemText primary="Películas más populares" />
             </ListItemButton>

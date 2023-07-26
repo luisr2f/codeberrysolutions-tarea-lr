@@ -21,7 +21,7 @@ const initialState: InitialState = {
 
 // Generates pending, fulfilled and rejected action types
 export const fetch = createAsyncThunk(
-  'country/fetch',
+  'popular/fetch',
   async ({ page }: { page: number }) => {
     const params = {
       page,
@@ -33,7 +33,7 @@ export const fetch = createAsyncThunk(
   }
 )
 
-const countrySlice = createSlice({
+const popularSlice = createSlice({
   name: 'popular',
   initialState,
   reducers: {},
@@ -54,4 +54,4 @@ const countrySlice = createSlice({
   }
 })
 
-export default countrySlice.reducer
+export default popularSlice.reducer
