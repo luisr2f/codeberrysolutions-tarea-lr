@@ -15,17 +15,3 @@ axiosInstance.interceptors.request.use((config: any) => {
 axiosInstance.defaults.baseURL = process.env.REACT_APP_BASE_URL
 
 export default axiosInstance
-
-/*
-import axios from 'axios'
-
-const instance = axios.create({
-  baseURL: 'https://api.themoviedb.org/3'
-  /* headers: {
-    'Access-Control-Allow-Origin': '*',
-    'Content-Type': 'text/plain'
-  } 
-})
-
-export default instance
-*/
