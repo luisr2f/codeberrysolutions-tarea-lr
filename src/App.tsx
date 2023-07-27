@@ -5,9 +5,9 @@ import { ThemeProvider, createTheme } from '@mui/material/styles'
 import './App.css'
 
 const theme = createTheme({
-  /* palette: {
+  palette: {
     mode: 'dark'
-  } */
+  }
 })
 
 const DefaultLayout = React.lazy(
