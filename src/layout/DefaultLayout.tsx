@@ -25,6 +25,8 @@ import ListAltIcon from '@mui/icons-material/ListAlt'
 import routes from './routes'
 import UseMatchedRoute from 'components/useMatchedRoute'
 
+import Col from '_global/color'
+
 const drawerWidth = 300
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
@@ -125,8 +127,8 @@ export default function DefaultLayout() {
         }}
         PaperProps={{
           sx: {
-            backgroundColor: '#D7D7D7',
-            color: '#333333'
+            backgroundColor: Col.identityPrimary,
+            color: 'white'
           }
         }}
         variant="persistent"
@@ -149,6 +151,10 @@ export default function DefaultLayout() {
             onClick={() => {
               navigate('/')
             }}
+            sx={{
+              backgroundColor:
+                route.path === '/' ? Col.identityPrimary2 : undefined
+            }}
           >
             <ListItemButton>
               <ListItemIcon>
@@ -161,6 +167,10 @@ export default function DefaultLayout() {
             disablePadding
             onClick={() => {
               navigate('/popular')
+            }}
+            sx={{
+              backgroundColor:
+                route.path === '/popular' ? Col.identityPrimary2 : undefined
             }}
           >
             <ListItemButton>

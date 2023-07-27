@@ -1,3 +1,4 @@
+import { urlImgs } from '_global/constant'
 import React from 'react'
 
 interface Props {
@@ -18,11 +19,11 @@ const Comp: React.FC<Props> = ({ img, title = '', size = 92 }) => {
 
   return (
     <>
-      {img !== undefined && img !== '' && img !== null && (
+      {img !== undefined && img !== null && (
         <img
           src={
             img !== ''
-              ? `https://image.tmdb.org/t/p/w${size}/${img}`
+              ? `${urlImgs}t/p/w${size}/${img}`
               : 'https://www.movienewz.com/img/films/poster-holder.jpg'
           }
           className="card-img-top pt-3 pb-0 px-3"

@@ -87,7 +87,7 @@ export default function Page() {
             {!data.loading && data.error !== '' ? (
               <MessageTable colSpan={5} text={data.error} />
             ) : null}
-            {data.loading || genres.loading ? (
+            {data.loading ? (
               <Loading colSpan={5} />
             ) : (
               <>
@@ -97,11 +97,19 @@ export default function Page() {
                   data.result?.results.map((row, index) => (
                     <TableRowStyled key={index}>
                       <TableCell>
-                        <ImageTmdb
-                          size={45}
-                          img={row.poster_path}
-                          title={row.title}
-                        />
+                        <Link
+                          onClick={() => setDetailId(row.id)}
+                          sx={{
+                            cursor: 'pointer',
+                            fontWeight: 'medium'
+                          }}
+                        >
+                          <ImageTmdb
+                            size={45}
+                            img={row.poster_path}
+                            title={row.title}
+                          />
+                        </Link>
                       </TableCell>
                       <TableCell>
                         <Box sx={{ my: 1 }}>
@@ -168,15 +176,6 @@ export default function Page() {
           showLastButton
         />
       )}
-      {
-        <>
-          <Box sx={{ mt: 3 }}>
-            <pre>
-              <code>{JSON.stringify(genres, null, 4)}</code>
-            </pre>
-          </Box>
-        </>
-      }
     </Box>
   )
 }

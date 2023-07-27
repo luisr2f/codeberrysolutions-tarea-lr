@@ -58,7 +58,7 @@ const Comp: React.FC<Props> = ({ id, onActionClose }) => {
             alignItems="center"
             sx={{
               borderBottom: 1,
-              borderColor: 'grey.300',
+              borderColor: 'grey.700',
               p: 1,
               px: 2,
               minHeight: 40
@@ -74,7 +74,7 @@ const Comp: React.FC<Props> = ({ id, onActionClose }) => {
               position: 'absolute',
               right: 8,
               top: 4,
-              color: (theme) => theme.palette.grey[700]
+              color: (theme) => theme.palette.grey[300]
             }}
           >
             <CloseIcon />
@@ -92,17 +92,17 @@ const Comp: React.FC<Props> = ({ id, onActionClose }) => {
                 <>
                   <Grid container sx={{ py: 1 }}>
                     <Grid item xs={3}>
-                      <Box
-                        display="flex"
-                        flexDirection="row"
-                        justifyContent="center"
-                        sx={{ pt: 2 }}
-                      >
+                      <Box sx={{ pt: 2 }}>
                         <ImageTmdb
                           size={185}
                           img={info?.poster_path}
                           title={info?.title}
                         />
+                        <Box sx={{ my: 2 }}>
+                          <Genres
+                            genre={info?.genres.map((item) => item?.name)}
+                          />
+                        </Box>
                       </Box>
                     </Grid>
                     <Grid item xs={9} sx={{ pl: 2 }}>
@@ -120,13 +120,7 @@ const Comp: React.FC<Props> = ({ id, onActionClose }) => {
                               </Typography>
                             </Box>
                           )}
-                        <Box sx={{ my: 2 }}>
-                          <ShowData type="title" data="Género" />
 
-                          <Genres
-                            genre={info?.genres.map((item) => item?.name)}
-                          />
-                        </Box>
                         <ShowData
                           field="Nombre oficial"
                           data={info?.original_title}
@@ -174,22 +168,27 @@ const Comp: React.FC<Props> = ({ id, onActionClose }) => {
                             data={String(info?.vote_count)}
                           />
                         </Box>
+
                         {info?.production_companies.length > 0 && (
-                          <Box
-                            display="flex"
-                            flexDirection="row"
-                            justifyContent="flex-start"
+                          <Grid
+                            container
+                            sx={{
+                              py: 1,
+                              my: 1,
+                              backgroundColor: 'grey.300',
+                              borderRadius: 1
+                            }}
                           >
                             {info?.production_companies.map((row, index) => (
-                              <Box key={index} sx={{ mr: 2 }}>
+                              <Grid item key={index} sx={{ m: 1 }}>
                                 <ImageTmdb
                                   size={92}
                                   img={row?.logo_path}
                                   title={row.name}
                                 />
-                              </Box>
+                              </Grid>
                             ))}
-                          </Box>
+                          </Grid>
                         )}
                       </>
                     </Grid>

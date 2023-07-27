@@ -66,7 +66,7 @@ const ShowData: React.FC<Props> = ({
       <Box
         sx={{
           borderBottom: 1,
-          borderColor: 'grey.300',
+          borderColor: 'grey.700',
           mx: 0.5,
           width: '100%'
         }}
