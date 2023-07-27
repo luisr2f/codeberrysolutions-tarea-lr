@@ -66,5 +66,6 @@
     "prettier": "^3.0.0",
     "typescript": "^4.8.4",
     "typescript-plugin-css-modules": "^3.4.0"
-  }
+  },
+  "proxy":"https://codeberrysolutions-tarea-lr.vercel.app/"
 }
