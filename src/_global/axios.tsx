@@ -6,8 +6,8 @@ const axiosInstance = axios.create()
 
 axiosInstance.interceptors.request.use((config: any) => {
   config.headers.Authorization = `Bearer ${personalToken}`
-  config.headers['Access-Control-Allow-Origin'] = '*'
-  config.headers['Content-Type'] = 'text/plain'
+  // config.headers['Access-Control-Allow-Origin'] = '*'
+  // config.headers['Content-Type'] = 'text/plain'
 
   return config
 })
@@ -15,3 +15,17 @@ axiosInstance.interceptors.request.use((config: any) => {
 axiosInstance.defaults.baseURL = process.env.REACT_APP_BASE_URL
 
 export default axiosInstance
+
+/*
+import axios from 'axios'
+
+const instance = axios.create({
+  baseURL: 'https://api.themoviedb.org/3'
+  /* headers: {
+    'Access-Control-Allow-Origin': '*',
+    'Content-Type': 'text/plain'
+  } 
+})
+
+export default instance
+*/
